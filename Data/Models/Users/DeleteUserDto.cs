@@ -5,9 +5,6 @@ namespace WorkoutTrackerApi.Data.Models.Users
 {
     public class DeleteUserDto
     {
-        public int UserId { get; set; }
-
-        public string? Name { get; set; }
 
         [Required]
         [EmailAddress]
@@ -15,15 +12,6 @@ namespace WorkoutTrackerApi.Data.Models.Users
 
         [Required]
         public string Password { get; set; }
-        public bool UserState { get; set; } = true;
-
-        public DateTime Birthday { get; set; }
-
-        public double BodyWeight { get; set; }
-
-        public double BodyHeight { get; set; }
-
-        // Relación uno a muchos: Un usuario puede tener muchos planes
-        public ICollection<Plan> Plans { get; set; } = new List<Plan>();
+        
     }
 }
