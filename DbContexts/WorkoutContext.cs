@@ -16,21 +16,20 @@ namespace WorkoutTrackerApi.DbContexts
         {
             base.OnModelCreating(modelBuilder);
 
-            // Relación uno a muchos entre User y Plan
-            modelBuilder.Entity<Plan>()
-                .HasOne(p => p.User)
-                .WithMany(u => u.Plans)
-                .HasForeignKey(p => p.UserId)
-                .OnDelete(DeleteBehavior.Cascade);
-
-            // Relación muchos a muchos entre Plan y Exercise (crea tabla intermedia automáticamente)
+            // Relación muchos a muchos entre Plan y Exercise con Cascade Delete
             modelBuilder.Entity<Plan>()
                 .HasMany(p => p.Exercises)
                 .WithMany(e => e.Plans)
                 .UsingEntity<Dictionary<string, object>>(
                     "PlanExercise",
-                    pe => pe.HasOne<Exercise>().WithMany().HasForeignKey("ExerciseId"),
-                    pe => pe.HasOne<Plan>().WithMany().HasForeignKey("PlanId"),
+                    pe => pe.HasOne<Exercise>()
+                            .WithMany()
+                            .HasForeignKey("ExerciseId")
+                            .OnDelete(DeleteBehavior.Cascade), // Eliminar la relación cuando se borra un ejercicio
+                    pe => pe.HasOne<Plan>()
+                            .WithMany()
+                            .HasForeignKey("PlanId")
+                            .OnDelete(DeleteBehavior.Cascade), // Eliminar la relación cuando se borra un plan
                     pe =>
                     {
                         pe.HasKey("PlanId", "ExerciseId");
@@ -45,7 +44,7 @@ namespace WorkoutTrackerApi.DbContexts
                     Name = "Lorenzo",
                     Email = "lorenzocarignani@outlook.com",
                     UserState = true,
-                    Password = "1234",
+                    Password = "1234", // Recuerda utilizar un hash de contraseña en producción
                     Birthday = new DateTime(1999, 01, 27),
                     BodyWeight = 93,
                     BodyHeight = 180
@@ -59,7 +58,7 @@ namespace WorkoutTrackerApi.DbContexts
                     PlanId = 1,
                     PlanName = "Chest and Back",
                     PlanDescription = "Day of work on biggest muscles",
-                    PlansDate = DateTime.Today,
+                    PlanDate = DateTime.UtcNow, // Cambiado a UtcNow para evitar problemas de zona horaria
                     PlanState = PlanState.Pending,
                     UserId = 1 // Vincula el plan con el usuario con ID 1
                 }

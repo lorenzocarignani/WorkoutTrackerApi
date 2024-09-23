@@ -1,13 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using WorkoutTrackerApi.Data.Entities;
 using WorkoutTrackerApi.Data.Enums;
 
-namespace WorkoutTrackerApi.Data.Entities
+namespace WorkoutTrackerApi.Data.Models.Exercises
 {
-    public class Exercise
+    public class ExerciseDto
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+        [Required]
         public int ExerciseId { get; set; }
 
         [Required]
@@ -26,8 +26,5 @@ namespace WorkoutTrackerApi.Data.Entities
 
         [Range(0, double.MaxValue)] // No permitir pesos negativos
         public double Weight { get; set; }
-
-        // Relación muchos a muchos: Un ejercicio puede estar en muchos planes
-        public ICollection<Plan> Plans { get; set; } = new List<Plan>();
     }
 }

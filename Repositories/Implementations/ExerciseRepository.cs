@@ -1,11 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 using WorkoutTrackerApi.Data.Entities;
 using WorkoutTrackerApi.DbContexts;
 using WorkoutTrackerApi.Repositories.Interfaces;
 
 namespace WorkoutTrackerApi.Repositories.Implementations
 {
-    public class ExerciseRepository : IRepository<Exercise>
+    public class ExerciseRepository : IExerciseRepository,  IRepository<Exercise>
     {
         private readonly WorkoutContext _context;
         public ExerciseRepository(WorkoutContext context) { 
@@ -41,6 +42,11 @@ namespace WorkoutTrackerApi.Repositories.Implementations
         {
             _context.Exercises.Update(entity);
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<Exercise?> GetByCondition(Expression<Func<Exercise, bool>> predicate)
+        {
+            return await _context.Exercises.FirstOrDefaultAsync(predicate);
         }
     }
 }

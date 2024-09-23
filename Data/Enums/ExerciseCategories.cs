@@ -9,6 +9,7 @@
         Legs = 4,
         Arms = 5,
         Abs = 6,
+        Cardio = 7,
 
     }
 }

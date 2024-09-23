@@ -1,4 +1,6 @@
-﻿namespace WorkoutTrackerApi.Repositories.Interfaces
+﻿using System.Linq.Expressions;
+
+namespace WorkoutTrackerApi.Repositories.Interfaces
 {
     public interface IRepository<T> where T : class
     {
@@ -7,5 +9,6 @@
         Task Add(T entity);
         Task Update(T entity);
         Task Delete(int id);
+        Task<T?> GetByCondition(Expression<Func<T, bool>> predicate);
     }
 }

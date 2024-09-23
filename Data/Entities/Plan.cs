@@ -11,11 +11,12 @@ namespace WorkoutTrackerApi.Data.Entities
         public int PlanId { get; set; }
 
         [Required]
+        [StringLength(100)] // Limitar longitud del nombre del plan
         public string PlanName { get; set; }
 
         public string? PlanDescription { get; set; }
 
-        public DateTime PlansDate { get; set; }
+        public DateTime PlanDate { get; set; } // Cambio de PlansDate a PlanDate para consistencia
 
         public PlanState PlanState { get; set; } = PlanState.Pending;
 

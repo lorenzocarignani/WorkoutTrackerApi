@@ -1,12 +1,10 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using WorkoutTrackerApi.Data.Entities;
 
-namespace WorkoutTrackerApi.Data.Entities
+namespace WorkoutTrackerApi.Data.Models.Users
 {
-    public class User
+    public class DeleteUserDto
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
         public int UserId { get; set; }
 
         public string? Name { get; set; }
@@ -17,15 +15,12 @@ namespace WorkoutTrackerApi.Data.Entities
 
         [Required]
         public string Password { get; set; }
-
         public bool UserState { get; set; } = true;
 
         public DateTime Birthday { get; set; }
 
-        [Range(0, double.MaxValue)]
         public double BodyWeight { get; set; }
 
-        [Range(0, double.MaxValue)]
         public double BodyHeight { get; set; }
 
         // Relación uno a muchos: Un usuario puede tener muchos planes
