@@ -7,5 +7,6 @@ namespace WorkoutTrackerApi.Controllers
     [ApiController]
     public class AuthController : ControllerBase
     {
+
     }
 }
