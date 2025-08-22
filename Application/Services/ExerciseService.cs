@@ -15,7 +15,7 @@ namespace WorkoutTrackerApi.Services.Implementations
         }
         public async Task AddExercise(CreateExerciseDto exercise)
         {
-            // Validar si ya existe un ejercicio con el mismo nombre directamente en el repositorio
+
             var existingExercise = await _exerciseRepository.GetByConditionAsync(e => e.NameExercise == exercise.NameExercise);
 
             if (existingExercise != null)
@@ -38,9 +38,14 @@ namespace WorkoutTrackerApi.Services.Implementations
 
 
 
-        public Task DeleteExercise(int idExercise)
+        public async Task<bool> DeleteExerciseById(int idExercise)
         {
-            throw new NotImplementedException();
+            var exercise = await _exerciseRepository.GetByIdAsync(idExercise);
+            if (exercise == null)
+            {
+                throw new KeyNotFoundException("Exercise not found"); 
+            }
+            return await _exerciseRepository.DeleteByIdAsync(idExercise);
         }
 
         public async Task<IEnumerable<ExerciseDto>> GetAllExercises()
@@ -71,14 +76,14 @@ namespace WorkoutTrackerApi.Services.Implementations
                     Reps = e.Reps,
                     Weight = e.Weight,
                 })
-                .FirstOrDefault(ex => ex.NameExercise == name); // Obtener el primero o null si no existe
+                .FirstOrDefault(ex => ex.NameExercise == name); 
         }
 
         public async Task<IEnumerable<ExerciseDto>> GetForCategories(ExerciseCategories category)
         {
             var exercises = await _exerciseRepository.GetAllAsync();
 
-            // Filtrar los ejercicios por la categoría antes de mapearlos a DTOs
+
             var filteredExercises = exercises
                 .Where(e => e.Categories == category)
                 .Select(e => new ExerciseDto
@@ -86,7 +91,7 @@ namespace WorkoutTrackerApi.Services.Implementations
                     ExerciseId = e.ExerciseId,
                     NameExercise = e.NameExercise,
                     Description = e.Description,
-                    Categories = e.Categories, // Extraer la categoría real del ejercicio
+                    Categories = e.Categories, 
                     Sets = e.Sets,
                     Reps = e.Reps,
                     Weight = e.Weight,
@@ -101,7 +106,7 @@ namespace WorkoutTrackerApi.Services.Implementations
             var exer = await _exerciseRepository.GetByIdAsync(idExercise);
             if (exer == null)
             {
-                throw new KeyNotFoundException("Exercise not found"); // Lanzar excepción si no se encuentra
+                throw new KeyNotFoundException("Exercise not found");
             }
 
             // Actualizar los campos

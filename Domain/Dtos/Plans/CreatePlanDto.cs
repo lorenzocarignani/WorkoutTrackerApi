@@ -19,10 +19,10 @@ namespace WorkoutTrackerApi.DTOs
 
         public PlanState PlanState { get; set; } = PlanState.Pending;
 
-        // Lista de IDs de ejercicios para agregar al plan
+
         public List<int> ExerciseIds { get; set; } = new List<int>();
 
-        // O alternativamente, crear ejercicios nuevos directamente
+  
         public List<CreateExerciseForPlanDto>? NewExercises { get; set; }
     }
 

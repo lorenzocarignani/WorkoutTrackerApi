@@ -122,7 +122,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
             return await query.Where(predicate).ToListAsync();
         }
 
-        // Método abstracto que debe ser implementado por cada repositorio específico
+        // Abstract method that must be implemented by each specific repository
         protected abstract Expression<Func<T, bool>> GetIdPredicate(int id);
     }
 }

@@ -11,23 +11,22 @@ namespace WorkoutTrackerApi.Data.Entities
         public int ExerciseId { get; set; }
 
         [Required]
-        [StringLength(100)] // Limitar longitud del nombre del ejercicio
+        [StringLength(100)] 
         public string NameExercise { get; set; }
 
         public string? Description { get; set; }
 
         public ExerciseCategories Categories { get; set; } = ExerciseCategories.NoCategory;
 
-        [Range(0, int.MaxValue)] // No permitir valores negativos
+        [Range(0, int.MaxValue)] 
         public int Sets { get; set; }
 
-        [Range(0, int.MaxValue)] // No permitir valores negativos
+        [Range(0, int.MaxValue)] 
         public int Reps { get; set; }
 
-        [Range(0, double.MaxValue)] // No permitir pesos negativos
+        [Range(0, double.MaxValue)]
         public double Weight { get; set; }
 
-        // Relación muchos a muchos: Un ejercicio puede estar en muchos planes
         public ICollection<Plan> Plans { get; set; } = new List<Plan>();
     }
 }

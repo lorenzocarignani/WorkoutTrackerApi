@@ -5,7 +5,7 @@ namespace WorkoutTrackerApi.Services.Interfaces
 {
     public interface IPlanService
     {
-        // CRUD básico
+
         Task<PlanDto?> GetPlanByIdAsync(int planId);
         Task<IEnumerable<PlanDto>> GetAllPlansAsync();
         Task<IEnumerable<PlanDto>> GetPlansByUserIdAsync(int userId);
@@ -13,22 +13,21 @@ namespace WorkoutTrackerApi.Services.Interfaces
         Task<PlanDto?> UpdatePlanAsync(int planId, UpdatePlanDto updatePlanDto);
         Task<bool> DeletePlanAsync(int planId);
 
-        // Métodos específicos para ejercicios en planes
+ 
         Task<bool> AddExerciseToPlanAsync(int planId, int exerciseId);
         Task<bool> RemoveExerciseFromPlanAsync(int planId, int exerciseId);
         Task<bool> AddMultipleExercisesToPlanAsync(int planId, List<int> exerciseIds);
 
-        // Métodos para estados de planes
         Task<bool> StartPlanAsync(int planId);
         Task<bool> CompletePlanAsync(int planId);
         Task<bool> CancelPlanAsync(int planId);
 
-        // Métodos de consulta
+
         Task<IEnumerable<PlanDto>> GetPlansByStateAsync(PlanState state);
         Task<IEnumerable<PlanDto>> GetPlansByDateRangeAsync(DateTime startDate, DateTime endDate);
         Task<IEnumerable<PlanDto>> GetUserPlansByStateAsync(int userId, PlanState state);
 
-        // Estadísticas
+
         Task<int> GetTotalPlansCountAsync();
         Task<int> GetUserPlansCountAsync(int userId);
         Task<int> GetCompletedPlansCountAsync(int userId);

@@ -17,7 +17,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener todos los planes
+        /// Get all plans
         /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<PlanDto>>> GetAllPlans()
@@ -34,7 +34,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener plan por ID
+        /// Get plan by id
         /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<PlanDto>> GetPlan(int id)
@@ -54,7 +54,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener planes por usuario
+        /// Get plans by user
         /// </summary>
         [HttpGet("user/{userId}")]
         public async Task<ActionResult<IEnumerable<PlanDto>>> GetPlansByUser(int userId)
@@ -71,7 +71,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Crear nuevo plan
+        /// Create a new plan
         /// </summary>
         [HttpPost]
         public async Task<ActionResult<PlanDto>> CreatePlan([FromBody] CreatePlanDto createPlanDto)
@@ -95,7 +95,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Actualizar plan
+        /// Update plan
         /// </summary>
         [HttpPut("{id}")]
         public async Task<ActionResult<PlanDto>> UpdatePlan(int id, [FromBody] UpdatePlanDto updatePlanDto)
@@ -118,7 +118,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Eliminar plan
+        /// Delete plan
         /// </summary>
         [HttpDelete("{id}")]
         public async Task<ActionResult> DeletePlan(int id)
@@ -138,7 +138,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Agregar ejercicio a plan
+        /// Add exercise to plan
         /// </summary>
         [HttpPost("{planId}/exercises/{exerciseId}")]
         public async Task<ActionResult> AddExerciseToPlan(int planId, int exerciseId)
@@ -158,7 +158,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Remover ejercicio de plan
+        /// Remove exercise from plan
         /// </summary>
         [HttpDelete("{planId}/exercises/{exerciseId}")]
         public async Task<ActionResult> RemoveExerciseFromPlan(int planId, int exerciseId)
@@ -178,7 +178,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Agregar múltiples ejercicios a plan
+        /// Add multiple exercises to a plan
         /// </summary>
         [HttpPost("{planId}/exercises")]
         public async Task<ActionResult> AddMultipleExercisesToPlan(int planId, [FromBody] List<int> exerciseIds)
@@ -198,7 +198,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Iniciar plan (cambiar estado a InProgress)
+        /// Start plan (change status to InProgress)
         /// </summary>
         [HttpPatch("{id}/start")]
         public async Task<ActionResult> StartPlan(int id)
@@ -218,7 +218,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Completar plan (cambiar estado a Completed)
+        /// Complete plan (change status to Completed)
         /// </summary>
         [HttpPatch("{id}/complete")]
         public async Task<ActionResult> CompletePlan(int id)
@@ -238,7 +238,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Cancelar plan (cambiar estado a Cancelled)
+        /// Cancel plan (change status to Cancelled)
         /// </summary>
         [HttpPatch("{id}/cancel")]
         public async Task<ActionResult> CancelPlan(int id)
@@ -258,7 +258,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener planes por estado
+        /// Get plans by state
         /// </summary>
         [HttpGet("state/{state}")]
         public async Task<ActionResult<IEnumerable<PlanDto>>> GetPlansByState(PlanState state)
@@ -275,7 +275,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener planes por rango de fechas
+        /// Get plans by date range
         /// </summary>
         [HttpGet("date-range")]
         public async Task<ActionResult<IEnumerable<PlanDto>>> GetPlansByDateRange(
@@ -294,7 +294,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener planes de usuario por estado
+        ///Get user plans by state
         /// </summary>
         [HttpGet("user/{userId}/state/{state}")]
         public async Task<ActionResult<IEnumerable<PlanDto>>> GetUserPlansByState(int userId, PlanState state)
@@ -311,7 +311,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener estadísticas de planes
+        /// Get plan statistics
         /// </summary>
         [HttpGet("stats")]
         public async Task<ActionResult> GetPlansStats()
@@ -332,7 +332,7 @@ namespace WorkoutTrackerApi.Controllers
         }
 
         /// <summary>
-        /// Obtener estadísticas de planes por usuario
+        /// Get plan statistics per user
         /// </summary>
         [HttpGet("user/{userId}/stats")]
         public async Task<ActionResult> GetUserPlansStats(int userId)

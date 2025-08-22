@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using WorkoutTrackerApi.Data.Enums;
 using WorkoutTrackerApi.Data.Models.Exercises;
+using WorkoutTrackerApi.Services;
 using WorkoutTrackerApi.Services.Implementations;
 using WorkoutTrackerApi.Services.Interfaces;
 
@@ -17,6 +18,9 @@ namespace WorkoutTrackerApi.Controllers
             _exerciseService = exerciseService;
         }
 
+        /// <summary>
+        /// Get all exercises
+        /// </summary>
         [HttpGet]
         public async Task<IActionResult> GetAllExercises()
         {
@@ -24,6 +28,9 @@ namespace WorkoutTrackerApi.Controllers
             return Ok(ex);
         }
 
+        /// <summary>
+        /// Get exercise by name
+        /// </summary>
         [HttpGet("{name}")]
         public async Task<IActionResult> GetForName(string name)
         {
@@ -40,9 +47,12 @@ namespace WorkoutTrackerApi.Controllers
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); // Devolver solo el mensaje de error
+                return BadRequest(ex.Message); 
             }
         }
+        /// <summary>
+        /// Get exercises by category
+        /// </summary>
         [HttpGet("category/{category}")]
         public async Task<IActionResult> GetForCategories(ExerciseCategories category)
         {
@@ -62,12 +72,15 @@ namespace WorkoutTrackerApi.Controllers
                 return BadRequest(ex.Message);
             }
         }
+        /// <summary>
+        /// Create exercise
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> CreateExercise([FromBody] CreateExerciseDto exerciseDto)
         {
             try
             {
-                // Validar el modelo si hay errores de validación
+ 
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
@@ -78,35 +91,58 @@ namespace WorkoutTrackerApi.Controllers
             }
             catch (InvalidOperationException ex)
             {
-                return Conflict(ex.Message); // Devolver un conflicto si ya existe
+                return Conflict(ex.Message);
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); // Devolver un mal estado si ocurre un error
+                return BadRequest(ex.Message); 
             }
         }
+        /// <summary>
+        /// Update exercise by id
+        /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateExercise(int id, [FromBody] UpdateExerciseDto updateExerciseDto)
         {
             try
             {
-                // Validar el modelo si hay errores de validación
+   
                 if (!ModelState.IsValid)
                 {
                     return BadRequest(ModelState);
                 }
 
-                // Llamar al servicio para actualizar el ejercicio
+    
                 await _exerciseService.UpdateExercise(id, updateExerciseDto);
-                return NoContent(); // 204 No Content para indicar que la actualización fue exitosa
+                return NoContent(); 
             }
             catch (KeyNotFoundException)
             {
-                return NotFound("Exercise not found"); // 404 Not Found si el ejercicio no existe
+                return NotFound("Exercise not found");
             }
             catch (Exception ex)
             {
-                return BadRequest(ex.Message); // 400 Bad Request para otros errores
+                return BadRequest(ex.Message);
+            }
+        }
+        /// <summary>
+        /// Delete exercise by id
+        /// </summary>
+        [HttpDelete("{id}")]
+        public async Task<ActionResult> DeleteExercise(int id)
+        {
+            try
+            {
+                var result = await _exerciseService.DeleteExerciseById(id);
+                return Ok($"Ejercicio con id: {id} eliminado");
+            }
+            catch(KeyNotFoundException) 
+            {
+                return NotFound("Exercise not found");
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, ("Error interno del servidor"));
             }
         }
 

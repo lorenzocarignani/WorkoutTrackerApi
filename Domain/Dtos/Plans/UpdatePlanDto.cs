@@ -15,10 +15,8 @@ namespace WorkoutTrackerApi.DTOs
 
         public PlanState? PlanState { get; set; }
 
-        // Para actualizar ejercicios del plan
         public List<int>? ExerciseIds { get; set; }
 
-        // Para agregar nuevos ejercicios
         public List<CreateExerciseForPlanDto>? NewExercises { get; set; }
     }
 }

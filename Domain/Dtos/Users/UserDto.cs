@@ -26,7 +26,6 @@ namespace WorkoutTrackerApi.Data.Models.Users
 
         public double BodyHeight { get; set; }
 
-        // Relación uno a muchos: Un usuario puede tener muchos planes
         public ICollection<Plan> Plans { get; set; } = new List<Plan>();
     }
 }

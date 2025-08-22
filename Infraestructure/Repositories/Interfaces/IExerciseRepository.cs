@@ -5,7 +5,6 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Interfaces
 {
     public interface IExerciseRepository : IRepository<Exercise>
     {
-        // Métodos específicos para ejercicios
         Task<IEnumerable<Exercise>> GetByNameAsync(string name);
         Task<IEnumerable<Exercise>> GetByCategoryAsync(ExerciseCategories category);
         Task<IEnumerable<Exercise>> GetByWeightRangeAsync(double minWeight, double maxWeight);

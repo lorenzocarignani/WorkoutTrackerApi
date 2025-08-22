@@ -7,7 +7,7 @@ namespace WorkoutTrackerApi.Services.Interfaces
     {
         Task AddExercise(CreateExerciseDto exercise);
         Task UpdateExercise(int idExercise, UpdateExerciseDto exercise);
-        Task DeleteExercise(int idExercise);
+        Task<bool> DeleteExerciseById(int idExercise);
         Task<ExerciseDto?> GetExercise(string name);
         Task<IEnumerable<ExerciseDto>> GetAllExercises();
         Task<IEnumerable<ExerciseDto>> GetForCategories(ExerciseCategories categories);

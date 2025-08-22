@@ -16,7 +16,7 @@ namespace WorkoutTrackerApi.Infraestructure.DbContexts
         {
             base.OnModelCreating(modelBuilder);
 
-            // Relación muchos a muchos entre Plan y Exercise con Cascade Delete
+            // Relation many to many Plan with Exercise
             modelBuilder.Entity<Plan>()
                 .HasMany(p => p.Exercises)
                 .WithMany(e => e.Plans)
@@ -25,47 +25,47 @@ namespace WorkoutTrackerApi.Infraestructure.DbContexts
                     pe => pe.HasOne<Exercise>()
                             .WithMany()
                             .HasForeignKey("ExerciseId")
-                            .OnDelete(DeleteBehavior.Cascade), // Eliminar la relación cuando se borra un ejercicio
+                            .OnDelete(DeleteBehavior.Cascade), // Delete the relation when delete a exercise
                     pe => pe.HasOne<Plan>()
                             .WithMany()
                             .HasForeignKey("PlanId")
-                            .OnDelete(DeleteBehavior.Cascade), // Eliminar la relación cuando se borra un plan
+                            .OnDelete(DeleteBehavior.Cascade), // Delete the relation when delete a plan
                     pe =>
                     {
                         pe.HasKey("PlanId", "ExerciseId");
-                        pe.ToTable("PlanExercises"); // Nombre de la tabla intermedia
+                        pe.ToTable("PlanExercises"); // Name intermediate table
                     });
 
-            // Datos semilla para User
+ 
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     UserId = 1,
-                    UserName = "Lorenzo",
-                    Email = "lorenzocarignani@outlook.com",
+                    UserName = "User1",
+                    Email = "User1@example.com",
                     UserState = true,
                     Role = Domain.Enums.UserRoles.Admin,
-                    Password = "1234", // Recuerda utilizar un hash de contraseña en producción
-                    Birthday = new DateTime(1999, 01, 27),
+                    Password = "1234", 
+                    Birthday = new DateTime(2015, 11, 7),
                     BodyWeight = 93,
                     BodyHeight = 180
                 }
             );
 
-            // Datos semilla para Plan
+
             modelBuilder.Entity<Plan>().HasData(
                 new Plan
                 {
                     PlanId = 1,
                     PlanName = "Chest and Back",
                     PlanDescription = "Day of work on biggest muscles",
-                    PlanDate = DateTime.UtcNow, // Cambiado a UtcNow para evitar problemas de zona horaria
+                    PlanDate = DateTime.UtcNow, 
                     PlanState = PlanState.Pending,
-                    UserId = 1 // Vincula el plan con el usuario con ID 1
+                    UserId = 1 
                 }
             );
 
-            // Datos semilla para Exercise
+
             modelBuilder.Entity<Exercise>().HasData(
                 new Exercise
                 {

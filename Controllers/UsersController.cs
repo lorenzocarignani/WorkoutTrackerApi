@@ -16,7 +16,11 @@ namespace WorkoutTrackerApi.Controllers
             _userService = userService;
         }
 
-        // GET: api/user
+
+        /// <summary>
+        /// Get all users
+        /// </summary>
+
         [HttpGet]
         public async Task<IActionResult> GetAllUsers()
         {
@@ -24,6 +28,9 @@ namespace WorkoutTrackerApi.Controllers
             return Ok(users);
         }
 
+        /// <summary>
+        /// Get all users by state
+        /// </summary>
         [HttpGet("GetAllUsersActive")]
         public async Task<IActionResult> GetAllUsersActive()
         {
@@ -31,7 +38,9 @@ namespace WorkoutTrackerApi.Controllers
             return Ok(users);
         }
 
-        // POST: api/user
+        /// <summary>
+        /// Create user
+        /// </summary>
         [HttpPost]
         public async Task<IActionResult> AddUser([FromBody] CreateUserDto userDto)
         {
@@ -44,7 +53,9 @@ namespace WorkoutTrackerApi.Controllers
             return CreatedAtAction(nameof(GetAllUsers), new { email = userDto.Email }, userDto);
         }
 
-        // PUT: api/user/{id}
+        /// <summary>
+        /// Update props user
+        /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUserProps(int id, [FromBody] UpdateUserPropDto updateUserPropDto)
         {
@@ -57,7 +68,9 @@ namespace WorkoutTrackerApi.Controllers
             return NoContent();
         }
 
-        // DELETE: api/user/{id}
+        /// <summary>
+        /// Delete user by id
+        /// </summary>
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(int id, [FromBody] DeleteUserDto deleteUserDto)
         {
@@ -70,13 +83,16 @@ namespace WorkoutTrackerApi.Controllers
             return NoContent();
         }
 
+        /// <summary>
+        /// Low logi user by id
+        /// </summary>
         [HttpPatch("{id}/lowlogic")]
         public async Task<IActionResult> LowLogicDelete(int id)
         {
-            // Llamamos al servicio para hacer el "borrado" lógico del usuario
+
             var result = await _userService.LowLogicUser(id);
 
-            // Verificamos si el usuario fue encontrado y marcado como inactivo
+ 
             if (!result)
             {
                 return NotFound("User not found.");

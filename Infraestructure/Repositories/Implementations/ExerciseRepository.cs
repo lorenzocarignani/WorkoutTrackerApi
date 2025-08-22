@@ -18,7 +18,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
             return e => e.ExerciseId == id;
         }
 
-        // Override para incluir relaciones por defecto
+        // Override for include relation for default
         public override async Task<Exercise?> GetByIdAsync(int id)
         {
             return await _dbSet
@@ -33,7 +33,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
                 .ToListAsync();
         }
 
-        // Métodos específicos para ejercicios
+        // Specific methods for exercises
         public async Task<IEnumerable<Exercise>> GetByNameAsync(string name)
         {
             return await _dbSet

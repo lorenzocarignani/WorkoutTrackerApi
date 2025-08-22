@@ -49,23 +49,22 @@ namespace WorkoutTrackerApi.Services
 
         public async Task<PlanDto> CreatePlanAsync(CreatePlanDto createPlanDto)
         {
-            // Verificar que el usuario existe
+
             var user = await _userRepository.GetByIdAsync(createPlanDto.UserId);
             if (user == null)
                 throw new ArgumentException($"Usuario con ID {createPlanDto.UserId} no encontrado");
 
-            // Usar el builder para crear el plan
+  
             var planBuilder = _planBuilder
                 .WithName(createPlanDto.PlanName)
                 .WithDescription(createPlanDto.PlanDescription)
                 .WithUser(createPlanDto.UserId)
                 .WithState(createPlanDto.PlanState);
 
-            // Establecer fecha
+
             if (createPlanDto.PlanDate.HasValue)
                 planBuilder.WithDate(createPlanDto.PlanDate.Value);
 
-            // Agregar ejercicios existentes por ID
             if (createPlanDto.ExerciseIds?.Any() == true)
             {
                 var exercises = new List<Exercise>();
@@ -78,7 +77,7 @@ namespace WorkoutTrackerApi.Services
                 planBuilder.AddExercises(exercises);
             }
 
-            // Crear nuevos ejercicios si se proporcionaron
+     
             if (createPlanDto.NewExercises?.Any() == true)
             {
                 foreach (var newExerciseDto in createPlanDto.NewExercises)
@@ -93,7 +92,7 @@ namespace WorkoutTrackerApi.Services
                         Weight = newExerciseDto.Weight
                     };
 
-                    // Guardar el ejercicio primero
+   
                     await _exerciseRepository.AddAsync(newExercise);
                     planBuilder.AddExercise(newExercise);
                 }
@@ -110,7 +109,7 @@ namespace WorkoutTrackerApi.Services
             var plan = await _planRepository.GetByIdAsync(planId);
             if (plan == null) return null;
 
-            // Actualizar propiedades básicas
+ 
             if (!string.IsNullOrEmpty(updatePlanDto.PlanName))
                 plan.PlanName = updatePlanDto.PlanName;
 
@@ -123,7 +122,7 @@ namespace WorkoutTrackerApi.Services
             if (updatePlanDto.PlanState.HasValue)
                 plan.PlanState = updatePlanDto.PlanState.Value;
 
-            // Actualizar ejercicios si se proporcionaron
+
             if (updatePlanDto.ExerciseIds != null)
             {
                 plan.Exercises.Clear();
@@ -135,7 +134,7 @@ namespace WorkoutTrackerApi.Services
                 }
             }
 
-            // Agregar nuevos ejercicios
+
             if (updatePlanDto.NewExercises?.Any() == true)
             {
                 foreach (var newExerciseDto in updatePlanDto.NewExercises)

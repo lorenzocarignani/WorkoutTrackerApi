@@ -88,7 +88,7 @@ namespace WorkoutTrackerApi.Services.Builders
         public Plan Build()
         {
             var result = _plan;
-            Reset(); // Resetear para próximo uso
+            Reset(); // Reset for next use
             return result;
         }
     }

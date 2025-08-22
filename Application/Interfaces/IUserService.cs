@@ -9,6 +9,6 @@ namespace WorkoutTrackerApi.Services.Interfaces
         Task DeleteUser(int userId, DeleteUserDto deleteUser);
         Task<bool> LowLogicUser(int userId);
         Task<IEnumerable<UserDto>> GetUserActive();
-        Task<IEnumerable<UserDto>> GetAllUsers();  // Devuelve una lista de usuarios
+        Task<IEnumerable<UserDto>> GetAllUsers();  
     }
 }

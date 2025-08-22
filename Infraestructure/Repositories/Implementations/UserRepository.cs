@@ -17,7 +17,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
             return u => u.UserId == id;
         }
 
-        // Override para incluir relaciones por defecto
+        // Override for include relation for default
         public override async Task<User?> GetByIdAsync(int id)
         {
             return await _dbSet
@@ -32,7 +32,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
                 .ToListAsync();
         }
 
-        // Métodos específicos para usuarios
+        // Specific methods for users
         public async Task<User?> GetByEmailAsync(string email)
         {
             return await _dbSet

@@ -46,7 +46,7 @@ namespace WorkoutTrackerApi.Services.Implementations
             }
         }
 
-        //Logica para que no borre si tiene Planes
+
         public async Task DeleteUser(int userId, DeleteUserDto deleteUserDto)
         {
             var user = await _userRepository.GetByIdAsync(userId);
@@ -56,16 +56,16 @@ namespace WorkoutTrackerApi.Services.Implementations
             }
         }
 
-        // Baja lógica: Marca al usuario como inactivo en lugar de eliminarlo
+
         public async Task<bool> LowLogicUser(int userId)
         {
-            // Obtenemos el usuario por ID
+
             var user = await _userRepository.GetByIdAsync(userId);
 
-            // Verificamos que el usuario exista
+
             if (user != null)
             {
-                // Marcamos al usuario como inactivo
+
                 if (user.UserState == true)
                 {
                     user.UserState = false;
@@ -76,13 +76,13 @@ namespace WorkoutTrackerApi.Services.Implementations
                     user.UserState = true;
                     await _userRepository.UpdateAsync(user);
                 }
-                // Actualizamos el estado del usuario en la base de datos
+
                 
 
-                return true; // Indicamos que la operación fue exitosa
+                return true; 
             }
 
-            return false; // Indicamos que el usuario no fue encontrado
+            return false;
         }
 
         public async Task<IEnumerable<UserDto>> GetAllUsers()

@@ -18,7 +18,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
             return p => p.PlanId == id;
         }
 
-        // Override para incluir relaciones por defecto
+        // Override for include relations for default
         public override async Task<Plan?> GetByIdAsync(int id)
         {
             return await _dbSet
@@ -35,7 +35,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
                 .ToListAsync();
         }
 
-        // Métodos específicos para planes
+        //Specific methods for plans
         public async Task<IEnumerable<Plan>> GetPlansByUserIdAsync(int userId)
         {
             return await _dbSet
@@ -87,10 +87,9 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
             var exercise = await _context.Exercises.FindAsync(exerciseId);
             if (exercise == null) return false;
 
-            // Verificar si el ejercicio ya está en el plan
+            // Check if the exercise is already in the plan
             if (plan.Exercises.Any(e => e.ExerciseId == exerciseId))
-                return true; // Ya existe, no es error
-
+                return true; // It already exists, it is not a mistake
             plan.Exercises.Add(exercise);
             await _context.SaveChangesAsync();
             return true;
@@ -120,7 +119,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
                 .FirstOrDefaultAsync(p => p.PlanId == planId);
         }
 
-        // Estadísticas
+        // Statistics
         public async Task<int> GetUserPlansCountAsync(int userId)
         {
             return await _dbSet.CountAsync(p => p.UserId == userId);
@@ -136,7 +135,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
             return await _dbSet.CountAsync(p => p.PlanState == state);
         }
 
-        // Métodos de estado
+        // State methods
         public async Task<bool> UpdatePlanStateAsync(int planId, PlanState newState)
         {
             var plan = await _dbSet.FindAsync(planId);
@@ -147,7 +146,7 @@ namespace WorkoutTrackerApi.Infraestructure.Repositories.Implementations
             return true;
         }
 
-        // Métodos adicionales útiles
+        //Useful Additional Methods
         public async Task<IEnumerable<Plan>> GetRecentPlansAsync(int userId, int count = 10)
         {
             return await _dbSet
