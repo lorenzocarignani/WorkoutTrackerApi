@@ -1,23 +1,58 @@
-# Visual Studio
-.vs/
-*.user
-*.userosscache
-*.suo
-*.sln.docstates
-
-# Build results
-
-[Dd]ebug/
-[Dd]ebugPublic/
-[Rr]elease/
-[Rr]eleasen/
+# Build
 [Bb]in/
 [Oo]bj/
+[Rr]elease/
+[Dd]ebug/
+[Ll]og/
+[Ll]ogs/
 TestResults/
 artifacts/
 publish/
-x64/
-x86/
-[Aa][Rr][Mm]/
-[Ll]ogs/
-[Ll]og/
+
+# IDE
+.vs/
+.idea/
+.vscode/*
+!.vscode/settings.json
+!.vscode/tasks.json
+!.vscode/launch.json
+!.vscode/extensions.json
+
+# User-specific
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# NuGet
+packages/
+.nuget/packages/
+*.nupkg
+*.snupkg
+
+# ASP.NET / IIS
+iisexpress/
+App_Data/
+
+# Coverage
+*.coverage
+*.coveragexml
+.coverage/
+coverage/
+.vstest/
+.vsTest/
+
+# OS
+*.DS_Store
+Thumbs.db
+
+# Local config/secrets
+*.env
+secrets.json
+appsettings.*.local.json
+*.Local.json
+
+# Repo específico (DB local)
+WorkoutTracker.db
+*.db-shm
+*.db-wal
