@@ -24,13 +24,13 @@ jobs:
           dotnet-version: "8.x"
 
       - name: Restore dependencies
-        run: dotnet restore WorkoutTrackerAPI.sln
+        run: dotnet restore WorkoutTrackerApi.sln
 
       - name: Build application
-        run: dotnet build WorkoutTrackerAPI.sln --configuration Release --no-restore
+        run: dotnet build WorkoutTrackerApi.sln --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish WorkoutTrackerAPI/WorkoutTrackerAPI.csproj -c Release -o ./myapp
+        run: dotnet publish WorkoutTrackerApi.csproj -c Release -o ./myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
