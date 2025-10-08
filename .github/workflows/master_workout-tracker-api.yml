@@ -9,9 +9,6 @@ on:
       - master
   workflow_dispatch:
 
-env:
-  BUILD_CONFIGURATION: Release  # Define la configuración de build
-
 jobs:
   build:
     runs-on: windows-latest
@@ -24,29 +21,26 @@ jobs:
       - name: Set up .NET Core
         uses: actions/setup-dotnet@v4
         with:
-          dotnet-version: '8.x'
+          dotnet-version: "8.x"
 
       - name: Restore dependencies
-        run: dotnet restore ./WorkoutTrackerAPI/WorkoutTrackerAPI.sln
+        run: dotnet restore WorkoutTrackerAPI.sln
 
       - name: Build application
-        run: dotnet build ./WorkoutTrackerAPI/WorkoutTrackerAPI.sln --configuration ${{ env.BUILD_CONFIGURATION }} --no-restore
+        run: dotnet build WorkoutTrackerAPI.sln --configuration Release --no-restore
 
       - name: dotnet publish
-        run: dotnet publish ./WorkoutTrackerAPI/WorkoutTrackerAPI.sln -c ${{ env.BUILD_CONFIGURATION }} -o "${{env.DOTNET_ROOT}}/myapp"
+        run: dotnet publish WorkoutTrackerAPI/WorkoutTrackerAPI.csproj -c Release -o ./myapp
 
       - name: Upload artifact for deployment job
         uses: actions/upload-artifact@v4
         with:
           name: .net-app
-          path: ${{env.DOTNET_ROOT}}/myapp
+          path: ./myapp
 
   deploy:
     runs-on: windows-latest
     needs: build
-    environment:
-      name: 'Production'
-      url: ${{ steps.deploy-to-webapp.outputs.webapp-url }}
     permissions:
       id-token: write #This is required for requesting the JWT
       contents: read #This is required for actions/checkout
@@ -71,3 +65,4 @@ jobs:
           app-name: 'workout-tracker-api'
           slot-name: 'Production'
           package: .
+          
